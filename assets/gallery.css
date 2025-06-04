@@ -17,7 +17,7 @@
 
 .gallery-column img {
   width: 100%;
-  /* transform: rotate(-25deg); */
+
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
