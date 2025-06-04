@@ -22,53 +22,207 @@
             n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
         }(window, document);</script>
     <style>
-        .gallery-container {
-            display: flex;
-            gap: 20px;
+        .never-die-section {
+            position: relative;
+            background: #000;
+            padding: 40px 0 200px;
             overflow: hidden;
-            padding: 20px 0;
+            min-height: 800px;
+        }
+
+        .div-block-14 {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 120px;
+        }
+
+        .gallery-container {
+            position: relative;
+            height: 650px;
+            width: 90%;
+            max-width: 1000px;
+            margin: 150px auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 50px;
+            box-sizing: border-box;
+            overflow: visible;
+            background: #000000;
+            transform: rotate(350deg) scale(1.6);
         }
 
         .gallery-column {
+            position: relative;
+            width: calc(25% - 12px);
+            height: 100%;
+            overflow: hidden;
+            padding: 0 5px;
+        }
+
+        .gallery-column-content {
+            position: absolute;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            min-width: 25%;
-            animation-duration: 20s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
+            gap: 5px;
+            animation: none;
+        }
+
+        .gallery-column:nth-child(odd) .gallery-column-content {
+            animation: scrollDown 15s linear infinite;
+        }
+
+        .gallery-column:nth-child(even) .gallery-column-content {
+            animation: scrollUp 15s linear infinite;
         }
 
         .gallery-column img {
             width: 100%;
-            /* transform: rotate(-25deg); */
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .scroll-up {
-            animation-name: scrollUp;
-        }
-
-        .scroll-down {
-            animation-name: scrollDown;
-        }
-
-        @keyframes scrollUp {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-50%);
-            }
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+            margin: 5px 0;
         }
 
         @keyframes scrollDown {
-            from {
-                transform: translateY(-50%);
-            }
-            to {
+            0% {
                 transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-33.33%);
+            }
+        }
+
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(-33.33%);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .gallery-container::before,
+        .gallery-container::after {
+            content: '';
+            position: absolute;
+            left: -20%;
+            right: -20%;
+            height: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery-container::before {
+            top: -20px;
+            background: linear-gradient(to bottom,
+                    rgb(0, 0, 0) 0%,
+                    rgba(0, 0, 0, 1) 40%,
+                    transparent 100%);
+        }
+
+        .gallery-container::after {
+            bottom: -20px;
+            background: linear-gradient(to top,
+                    rgb(0, 0, 0) 0%,
+                    rgba(0, 0, 0, 1) 40%,
+                    transparent 100%);
+        }
+
+        .heading.white {
+            color: #fff;
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10%;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Маски обрізання */
+        .gallery-container::before,
+        .gallery-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery-container::before {
+            top: 0;
+            background: linear-gradient(to bottom,
+                    rgb(0, 0, 0) 0%,
+                    rgba(0, 0, 0, 1) 50%,
+                    transparent 100%);
+        }
+
+        .gallery-container::after {
+            bottom: 0;
+            background: linear-gradient(to top,
+                    rgb(0, 0, 0) 0%,
+                    rgba(0, 0, 0, 1) 50%,
+                    transparent 100%);
+        }
+
+        /* Оптимізація для різних екранів */
+        @media (max-width: 768px) {
+            .gallery-container {
+                height: 500px;
+                padding: 30px;
+                transform: rotate(-25deg) scale(1);
+                margin: 100px auto;
+            }
+
+            .gallery-column {
+                width: calc(25% - 7.5px);
+                padding: 0 3px;
+            }
+
+            .gallery-column-content {
+                gap: 10px;
+            }
+
+            .div-block-14 {
+                margin-bottom: 80px;
+            }
+
+            .heading.white {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-container {
+                height: 400px;
+                padding: 20px;
+                transform: rotate(-20deg) scale(0.9);
+                margin: 80px auto;
+            }
+
+            .gallery-column {
+                padding: 0 2px;
+            }
+
+            .heading.white {
+                font-size: 28px;
+            }
+
+            .div-block-14 {
+                margin-bottom: 60px;
+            }
+        }
+
+        /* Додаткова оптимізація продуктивності */
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-column-content {
+                animation-duration: 30s;
             }
         }
     </style>
@@ -181,37 +335,69 @@
                                 <h1 class="heading white">What Is BLOB May Never Die</h1>
                             </div>
                             <div class="div-block-13 gallery-container">
-                                <div class="gallery-column scroll-up">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
+                                <div class="gallery-column">
+                                    <div class="gallery-column-content">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                    </div>
                                 </div>
-                                <div class="gallery-column scroll-down">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
+                                <div class="gallery-column">
+                                    <div class="gallery-column-content">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                    </div>
                                 </div>
-                                <div class="gallery-column scroll-up">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
+                                <div class="gallery-column">
+                                    <div class="gallery-column-content">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                    </div>
                                 </div>
-                                <div class="gallery-column scroll-down">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
-                                    <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif" alt="Blob Comic">
-                                    <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif" alt="Blob Katana">
-                                    <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif" alt="Blob Arrow">
+                                <div class="gallery-column">
+                                    <div class="gallery-column-content">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                        <img src="67297418b2029beb5bbde133/6733a611e21014c63a11a086_Comics_2%202.avif"
+                                            alt="Blob Comic">
+                                        <img src="67297418b2029beb5bbde133/6733a6120b9af47baf307b29_Katana%201.avif"
+                                            alt="Blob Katana">
+                                        <img src="67297418b2029beb5bbde133/6733ba64cad49c8ab4c60884_Arrow%201.avif"
+                                            alt="Blob Arrow">
+                                    </div>
                                 </div>
                             </div>
                         </div>
