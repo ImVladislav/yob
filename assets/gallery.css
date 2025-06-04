@@ -1,0 +1,49 @@
+.gallery-container {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 25%;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.gallery-column img {
+  width: 100%;
+  /* transform: rotate(-25deg); */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-up {
+  animation-name: scrollUp;
+}
+
+.scroll-down {
+  animation-name: scrollDown;
+}
+
+@keyframes scrollUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scrollDown {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
